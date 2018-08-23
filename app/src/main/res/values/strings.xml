@@ -2,7 +2,8 @@
     <string name="app_name">SecureBarnacle</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_notepad">NotepadActivity</string>
-    <string name="placeholder">Type Here...</string>
+    <string name="placeholder">Type Here…</string>
     <string name="save">Save</string>
     <string name="new_note">New Note</string>
+    <string name="delete">Delete</string>
 </resources>

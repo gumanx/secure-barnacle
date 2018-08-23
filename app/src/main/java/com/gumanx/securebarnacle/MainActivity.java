@@ -13,6 +13,9 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
+    private NotesAdapter notesAdapter;
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.notes);
+        recyclerView = findViewById(R.id.notes);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-        recyclerView.setAdapter(new NotesAdapter(fileList()));
+        updateNotesAdapter();
     }
 
     @Override
@@ -54,5 +57,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateNotesAdapter();
+    }
+
+    private void updateNotesAdapter() {
+        notesAdapter = new NotesAdapter(fileList());
+        recyclerView.setAdapter(notesAdapter);
     }
 }
