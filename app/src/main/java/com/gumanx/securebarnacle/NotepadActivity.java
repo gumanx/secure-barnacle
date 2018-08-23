@@ -2,17 +2,17 @@ package com.gumanx.securebarnacle;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class NotepadActivity extends AppCompatActivity {
 
@@ -64,13 +64,34 @@ public class NotepadActivity extends AppCompatActivity {
         // Saves text to the specified filename in the App's internal storage.
         // Gives a toast showing either success or failure in saving.
         try {
-            FileOutputStream outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-            outputStream.write(noteText.getText().toString().getBytes());
-            outputStream.close();
+            OutputStreamWriter out =
+                    new OutputStreamWriter(openFileOutput(filename, Context.MODE_PRIVATE));
+            BufferedWriter writer = new BufferedWriter(out);
+            writer.write(noteText.getText().toString());
+            writer.close();
             Toast.makeText(this, "Note Saved!", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(this, "Error Saving:" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         return true;
+    }
+
+    private String open(String filename) {
+        // Opens the specified file, if it exists.
+        // Returns the contents of the file.
+        try {
+            InputStreamReader in = new InputStreamReader(openFileInput(filename));
+            BufferedReader reader = new BufferedReader(in);
+            String str;
+            StringBuilder buffer = new StringBuilder();
+            while ((str = reader.readLine()) != null) {
+                buffer.append(str);
+            }
+            reader.close();
+            return buffer.toString();
+        } catch (Exception e) {
+            Toast.makeText(this, "Error Opening:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        return null;
     }
 }
