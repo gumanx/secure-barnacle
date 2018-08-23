@@ -13,8 +13,6 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = findViewById(R.id.notes);
+        RecyclerView recyclerView = findViewById(R.id.notes);
         recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         recyclerView.setAdapter(new NotesAdapter(fileList()));
     }

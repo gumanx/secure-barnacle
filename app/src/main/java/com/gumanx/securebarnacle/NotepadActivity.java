@@ -28,6 +28,12 @@ public class NotepadActivity extends AppCompatActivity {
 
         noteText = findViewById(R.id.noteText);
         noteTitle = findViewById(R.id.noteTitle);
+
+        String title = getIntent().getStringExtra("title");
+        if (title != null) {
+            noteTitle.setText(title);
+            noteText.setText(open(title));
+        }
     }
 
     @Override

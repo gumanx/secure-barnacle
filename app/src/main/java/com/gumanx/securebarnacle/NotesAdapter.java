@@ -1,5 +1,7 @@
 package com.gumanx.securebarnacle;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +13,20 @@ public class NotesAdapter extends RecyclerView.Adapter <NotesAdapter.NoteHolder>
 
     private String[] notesList;
 
-    public static class NoteHolder extends RecyclerView.ViewHolder {
+    public class NoteHolder extends RecyclerView.ViewHolder {
         public TextView title;
         NoteHolder(View view) {
             super(view);
             title = view.findViewById(R.id.title);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context = view.getContext();
+                    Intent intent = new Intent(context, NotepadActivity.class);
+                    intent.putExtra("title", title.getText());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
